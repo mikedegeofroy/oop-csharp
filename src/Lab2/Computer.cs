@@ -1,16 +1,18 @@
-using Itmo.ObjectOrientedProgramming.Lab2.Motherboard;
-using Itmo.ObjectOrientedProgramming.Lab2.Processor;
+using Itmo.ObjectOrientedProgramming.Lab2.Frame;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2;
 
-public class Computer
+public class Computer : IValidatable
 {
-    private IMotherboard? _motherboard;
-    private IProcessor? _processor;
-    // private IFrame? _frame;
-    // private IGraphicsUnit? _graphicsUnit;
+    private IFrame _frame;
 
-    public class Build
+    public Computer(IFrame frame)
     {
+        _frame = frame;
+    }
+
+    public Result Validate()
+    {
+        return _frame.Validate();
     }
 }
