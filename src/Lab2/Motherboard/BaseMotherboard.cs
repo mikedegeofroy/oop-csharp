@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab2.Bios;
 using Itmo.ObjectOrientedProgramming.Lab2.CpuCooler;
 using Itmo.ObjectOrientedProgramming.Lab2.GraphicsCard;
@@ -50,29 +53,63 @@ public class BaseMotherboard : IMotherboard
         GraphicsCard = graphicsCard;
     }
 
-    public Result Validate()
+    public ValidationResult Validate()
     {
-        // do this correctly
-        Result valid = new Result.Success();
+        var warnings = new List<string>();
 
-        // check cpu
-        if (Cpu == null) return new Result.Failure("No available cpu");
-        if (Cpu.Socket != Socket) valid = new Result.Failure("Incompatible motherboard and cpu socket");
+        var checkMethods = new Func<ValidationResult>[]
+        {
+            CheckCpuCompatibility,
+            CheckCpuCoolerCompatibility,
+            CheckBiosCompatibility,
+            CheckGraphicsCardCompatibility,
+        };
 
-        // check cpu cooler
-        if (CpuCooler == null) return new Result.Failure("No available cooler");
-        if (!CpuCooler.SupportedSockets.Contains(Cpu.Socket))
-            return new Result.Failure("Cooler cant mount on cpu socket.");
-        if (CpuCooler.HeatDissipation < Cpu.HeatGeneration) return new Result.Failure("Cooler can't handle cpu heat.");
+        foreach (Func<ValidationResult> check in checkMethods)
+        {
+            ValidationResult result = check();
+            switch (result)
+            {
+                case ValidationResult.Failure:
+                    return result;
+                case ValidationResult.Warning warning:
+                    warnings.Add(warning.Message);
+                    break;
+            }
+        }
 
-        // check bios
-        if (Bios == null) return new Result.Failure("No available bios");
-        if (!Bios.SupportedProcessors.Contains(Cpu.GetType()))
-            return new Result.Failure("Bios doesn't support cpu.");
+        return warnings.Any() ? new ValidationResult.Warning(string.Join("\n", warnings)) : new ValidationResult.Success();
+    }
 
-        // check graphics card
+    private ValidationResult CheckCpuCoolerCompatibility()
+    {
+        if (CpuCooler == null) return new ValidationResult.Failure("No available cooler");
+        if (!CpuCooler.SupportedSockets.Contains(Socket))
+            return new ValidationResult.Failure("Cooler cant mount on cpu socket.");
+        if (Cpu != null && CpuCooler.HeatDissipation < Cpu.HeatGeneration) return new ValidationResult.Warning("Cooler can't handle cpu heat.");
+        return CpuCooler.Validate();
+    }
 
-        // check power supply
-        return valid;
+    private ValidationResult CheckCpuCompatibility()
+    {
+        if (Cpu == null) return new ValidationResult.Failure("No available cpu");
+        return Cpu.Socket != Socket ? new ValidationResult.Failure("Incompatible motherboard and cpu socket") : Cpu.Validate();
+    }
+
+    private ValidationResult CheckBiosCompatibility()
+    {
+        if (Bios == null) return new ValidationResult.Failure("No available bios");
+        if (Cpu != null && !Bios.SupportedProcessors.Contains(Cpu.GetType()))
+            return new ValidationResult.Failure("Bios doesn't support cpu.");
+        return new ValidationResult.Success();
+    }
+
+    private ValidationResult CheckGraphicsCardCompatibility()
+    {
+        if (GraphicsCard != null) return new ValidationResult.Success();
+        if (Cpu is { IntegratedGraphics: false })
+            return new ValidationResult.Warning("No graphics available.");
+
+        return new ValidationResult.Success();
     }
 }

@@ -18,8 +18,8 @@ public class AsusCpu : ICpu
     public bool IntegratedGraphics => true;
     public int HeatGeneration => 10;
 
-    public Result Validate()
+    public ValidationResult Validate()
     {
-        return new Result.Success();
+        return new ValidationResult.Success();
     }
 }

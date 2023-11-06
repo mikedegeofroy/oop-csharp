@@ -3,9 +3,9 @@ using System.Collections.ObjectModel;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Bios;
 
-public interface IBios
+public interface IBios : IValidatable
 {
-    public BiosType Type { get; }
+    public BiosType BiosType { get; }
     public ReadOnlyCollection<Type> SupportedProcessors { get; }
     public string Version { get; }
 }

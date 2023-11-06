@@ -3,7 +3,7 @@ using Itmo.ObjectOrientedProgramming.Lab2.Processor;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.CpuCooler;
 
-public interface ICpuCooler
+public interface ICpuCooler : IValidatable
 {
     public Dimensions Dimensions { get; }
 

@@ -10,10 +10,10 @@ public class BasicFrame : IFrame
         _motherboard = motherboard;
     }
 
-    public Result Validate()
+    public ValidationResult Validate()
     {
         // TODO
         // Add graphics card check
-        return _motherboard == null ? new Result.Failure("No motherboard available") : _motherboard.Validate();
+        return _motherboard == null ? new ValidationResult.Failure("No motherboard available") : _motherboard.Validate();
     }
 }
