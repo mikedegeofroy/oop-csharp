@@ -13,7 +13,7 @@ public class ComputerBuilder
     private IMotherboard? _motherboard;
     private IPowerSupply? _powerSupply;
     private IBios? _bios;
-    private IProcessor? _processor;
+    private ICpu? _processor;
     private IGraphicsCard? _graphicsCard;
 
     public ComputerBuilder SetMotherboard(IMotherboard motherboard)
@@ -28,9 +28,9 @@ public class ComputerBuilder
         return this;
     }
 
-    public ComputerBuilder SetProcessor(IProcessor processor)
+    public ComputerBuilder SetProcessor(ICpu cpu)
     {
-        _processor = processor;
+        _processor = cpu;
         return this;
     }
 
@@ -56,7 +56,7 @@ public class ComputerBuilder
     {
         if (_motherboard == null) return null;
         _motherboard.SetBios(_bios);
-        _motherboard.SetProcessor(_processor);
+        _motherboard.SetCpu(_processor);
         _motherboard.SetGraphicsCard(_graphicsCard);
         _motherboard.SetPowerSupply(_powerSupply);
 
