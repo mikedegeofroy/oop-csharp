@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab2.Bios;
 using Itmo.ObjectOrientedProgramming.Lab2.Cpu;
 using Itmo.ObjectOrientedProgramming.Lab2.Frame;
@@ -28,6 +30,31 @@ public class ComputerBuilder
         _graphicsCards = new List<IGraphicsCard>();
         _drives = new List<IStorageDrive>();
         _ram = new List<IRam>();
+    }
+
+    public ComputerBuilder(Computer computer)
+        : this()
+    {
+        if (computer == null)
+        {
+            throw new ArgumentNullException(nameof(computer), "The computer argument cannot be null.");
+        }
+
+        _frame = computer.Frame;
+        _motherboard = _frame.Motherboard;
+        if (_motherboard == null) return;
+        _graphicsCards = _motherboard.GraphicCards.ToList();
+        _drives = _motherboard.StorageDrives.ToList();
+        _ram = _motherboard.Ram.ToList();
+        _powerSupply = _motherboard.PowerSupply;
+        _bios = _motherboard.Bios;
+        _cpu = _motherboard.Cpu;
+        _wifiAdapter = _motherboard.WifiAdapter;
+    }
+
+    public static ComputerBuilder FromComputer(Computer computer)
+    {
+        return new ComputerBuilder(computer);
     }
 
     public ComputerBuilder SetMotherboard(IMotherboard motherboard)

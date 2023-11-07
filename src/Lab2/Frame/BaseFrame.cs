@@ -7,21 +7,22 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Frame;
 
 public class BaseFrame : IFrame
 {
-    private IMotherboard? _motherboard;
     public BaseFrame(int height, int width, IEnumerable<MotherboardFormFactor> supportedFormFactors)
     {
         SupportedFormFactors = new List<MotherboardFormFactor>(supportedFormFactors).ToArray();
         MaxDimensions = new Dimensions(height, width, 50);
     }
 
-    public Power Power => _motherboard != null ? _motherboard.Power : new Power(0);
+    public IMotherboard? Motherboard { get; private set; }
+
+    public Power Power => Motherboard != null ? Motherboard.Power : new Power(0);
 
     public Dimensions MaxDimensions { get; }
     public IReadOnlyList<MotherboardFormFactor> SupportedFormFactors { get; }
 
     public void SetMotherboard(IMotherboard? motherboard)
     {
-        _motherboard = motherboard;
+        Motherboard = motherboard;
     }
 
     public ValidationResult Validate()
@@ -53,22 +54,22 @@ public class BaseFrame : IFrame
 
     private ValidationResult CheckAvailableMotherboard()
     {
-        return _motherboard == null ? new ValidationResult.Failure("No motherboard available") : _motherboard.Validate();
+        return Motherboard == null ? new ValidationResult.Failure("No motherboard available") : Motherboard.Validate();
     }
 
     private ValidationResult CheckMotherboardFormFactor()
     {
-        if (_motherboard == null) return new ValidationResult.Success();
-        if (SupportedFormFactors.Contains(_motherboard.MotherboardFormFactor)) return new ValidationResult.Success();
+        if (Motherboard == null) return new ValidationResult.Success();
+        if (SupportedFormFactors.Contains(Motherboard.MotherboardFormFactor)) return new ValidationResult.Success();
         return new ValidationResult.Failure("Case doesn't support motherboard form factor");
     }
 
     private ValidationResult CheckGpuDimensions()
     {
-        if (_motherboard == null) return new ValidationResult.Success();
+        if (Motherboard == null) return new ValidationResult.Success();
 
-        if (_motherboard.GraphicCards.Sum(x => x.Dimensions.Height) < MaxDimensions.Height
-            && _motherboard.GraphicCards.Sum(x => x.Dimensions.Width) < MaxDimensions.Width)
+        if (Motherboard.GraphicCards.Sum(x => x.Dimensions.Height) < MaxDimensions.Height
+            && Motherboard.GraphicCards.Sum(x => x.Dimensions.Width) < MaxDimensions.Width)
             return new ValidationResult.Success();
         return new ValidationResult.Failure("Graphic cards don't fit in case.");
     }

@@ -7,6 +7,8 @@ public interface IFrame : IValidatable, IPowerManagement
 {
     public Dimensions MaxDimensions { get; }
 
+    public IMotherboard? Motherboard { get; }
+
     public IReadOnlyList<MotherboardFormFactor> SupportedFormFactors { get; }
     public void SetMotherboard(IMotherboard? motherboard);
 }
