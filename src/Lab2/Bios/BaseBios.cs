@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Itmo.ObjectOrientedProgramming.Lab2.Processor;
+using Itmo.ObjectOrientedProgramming.Lab2.Cpu;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Bios;
 
-public class BiosBase : IBios
+public class BaseBios : IBios
 {
-    public BiosBase(string version, BiosType biosType)
+    public BaseBios(string version, BiosType biosType)
     {
         var supportedProcessors = new List<Type>
         {

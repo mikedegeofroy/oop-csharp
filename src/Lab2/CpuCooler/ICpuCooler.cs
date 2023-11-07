@@ -1,9 +1,9 @@
 using System.Collections.ObjectModel;
-using Itmo.ObjectOrientedProgramming.Lab2.Processor;
+using Itmo.ObjectOrientedProgramming.Lab2.Cpu;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.CpuCooler;
 
-public interface ICpuCooler : IValidatable
+public interface ICpuCooler : IValidatable, IPowerManagement
 {
     public Dimensions Dimensions { get; }
 

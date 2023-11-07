@@ -1,6 +1,6 @@
 using Itmo.ObjectOrientedProgramming.Lab2.Frame;
 
-namespace Itmo.ObjectOrientedProgramming.Lab2;
+namespace Itmo.ObjectOrientedProgramming.Lab2.Computer;
 
 public class Computer
 {

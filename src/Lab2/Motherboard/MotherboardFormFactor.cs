@@ -1,6 +1,6 @@
 namespace Itmo.ObjectOrientedProgramming.Lab2.Motherboard;
 
-public enum FormFactor
+public enum MotherboardFormFactor
 {
     StandardAtx,
     MicroAtx,
