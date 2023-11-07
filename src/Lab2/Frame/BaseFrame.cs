@@ -34,15 +34,16 @@ public class BaseFrame : IFrame
             CheckAvailableMotherboard,
             CheckMotherboardFormFactor,
             CheckGpuDimensions,
+            CheckPower,
         };
 
         foreach (Func<ValidationResult> check in checkMethods)
         {
-            ValidationResult result = check();
-            switch (result)
+            ValidationResult validationResult = check();
+            switch (validationResult)
             {
                 case ValidationResult.Failure:
-                    return result;
+                    return validationResult;
                 case ValidationResult.Warning warning:
                     warnings.Add(warning.Message);
                     break;
@@ -72,5 +73,16 @@ public class BaseFrame : IFrame
             && Motherboard.GraphicCards.Sum(x => x.Dimensions.Width) < MaxDimensions.Width)
             return new ValidationResult.Success();
         return new ValidationResult.Failure("Graphic cards don't fit in case.");
+    }
+
+    private ValidationResult CheckPower()
+    {
+        int powerGap = Power.Provision - Power.Consumption;
+        return powerGap switch
+        {
+            >= 0 => new ValidationResult.Success(),
+            < -50 => new ValidationResult.Failure("Not enough power!"),
+            _ => new ValidationResult.Warning("Low power!"),
+        };
     }
 }

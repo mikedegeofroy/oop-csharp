@@ -26,10 +26,10 @@ public class MotherboardTest
         motherboard.SetCpuCooler(new BaseCooler(new Dimensions(1, 1, 1), 5, new ReadOnlyCollection<CpuSocket>(new[] { CpuSocket.Lga1151 }), 0));
 
         // Act
-        ValidationResult result = motherboard.Validate();
+        ValidationResult validationResult = motherboard.Validate();
 
         // Assert
-        Assert.True(result is ValidationResult.Warning);
+        Assert.True(validationResult is ValidationResult.Warning);
     }
 
     [Fact]
@@ -43,9 +43,9 @@ public class MotherboardTest
         motherboard.SetCpuCooler(new BaseCooler(new Dimensions(1, 1, 1), 5, new ReadOnlyCollection<CpuSocket>(new[] { CpuSocket.Lga1151 }), 1));
 
         // Act
-        ValidationResult result = motherboard.Validate();
+        ValidationResult validationResult = motherboard.Validate();
 
         // Assert
-        Assert.True(result is ValidationResult.Failure);
+        Assert.True(validationResult is ValidationResult.Failure);
     }
 }

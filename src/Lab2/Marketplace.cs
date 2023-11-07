@@ -31,6 +31,7 @@ public static class Marketplace
         {
             { "Workstation_Lga2011", new BaseCpu(CpuSocket.Lga2011, 12, 2.3, false, 130, 3600, 250) },
             { "Gaming_SocketAm4", new BaseCpu(CpuSocket.SocketAm4, 6, 3.7, true, 95, 3600, 95) },
+            { "Gaming_Lga1151", new BaseCpu(CpuSocket.Lga1151, 6, 3.7, true, 95, 3600, 95) },
             { "Legacy_Socket939", new BaseCpu(CpuSocket.Socket939, 2, 2.8, false, 89, 3600, 89) },
             { "Server_Lga1151", new BaseCpu(CpuSocket.Lga1151, 8, 2.7, false, 80, 3200, 120) },
             { "Budget_SocketAm2", new BaseCpu(CpuSocket.SocketAm2, 4, 3.0, false, 62, 1600, 62) },
@@ -42,7 +43,7 @@ public static class Marketplace
             { "HighPerformance", new BaseCooler(new Dimensions(120, 120, 25), 250, new ReadOnlyCollection<CpuSocket>(new List<CpuSocket> { CpuSocket.Lga1151, CpuSocket.Lga2011, CpuSocket.SocketAm4 }), 5) },
             { "MidRange", new BaseCooler(new Dimensions(92, 92, 25), 180, new ReadOnlyCollection<CpuSocket>(new List<CpuSocket> { CpuSocket.SocketAm2, CpuSocket.SocketAm4 }), 3) },
             { "Budget", new BaseCooler(new Dimensions(80, 80, 15), 120, new ReadOnlyCollection<CpuSocket>(new List<CpuSocket> { CpuSocket.Socket939, CpuSocket.SocketAm2 }), 2) },
-            { "Legacy", new BaseCooler(new Dimensions(70, 70, 15), 100, new ReadOnlyCollection<CpuSocket>(new List<CpuSocket> { CpuSocket.Socket939, CpuSocket.Socket940 }), 1) },
+            { "Legacy", new BaseCooler(new Dimensions(70, 70, 15), 60, new ReadOnlyCollection<CpuSocket>(new List<CpuSocket> { CpuSocket.Socket939, CpuSocket.Socket940, CpuSocket.Lga1151 }), 1) },
         };
 
         GraphicsCards = new Dictionary<string, IGraphicsCard>()
@@ -109,6 +110,7 @@ public static class Marketplace
             { "Budget_Build", new BasePowerSupply(5, 450) },
             { "Workstation", new BasePowerSupply(20, 1000) },
             { "EntryLevel", new BasePowerSupply(5, 350) },
+            { "Legacy", new BasePowerSupply(5, 150) },
         };
 
         // Cases

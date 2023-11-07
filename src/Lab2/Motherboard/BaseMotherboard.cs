@@ -15,7 +15,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Motherboard;
 
 public class BaseMotherboard : IMotherboard
 {
-    private int _consumption;
+    private Power _consumption;
     public BaseMotherboard(MotherboardFormFactor motherboardFormFactor, CpuSocket socket, int pcieSlots, int sataSlots, int ramSlots, bool xmpCompatible, int consumption)
     {
         Cpu = null;
@@ -29,7 +29,7 @@ public class BaseMotherboard : IMotherboard
         SataSlots = sataSlots;
         RamSlots = ramSlots;
         XmpCompatible = xmpCompatible;
-        _consumption = consumption;
+        _consumption = new Power(consumption);
     }
 
     public MotherboardFormFactor MotherboardFormFactor { get; }
@@ -51,10 +51,11 @@ public class BaseMotherboard : IMotherboard
     {
         get
         {
-            var powers = new List<Power>();
+            var powers = new List<Power> { _consumption };
             if (Cpu != null) powers.Add(Cpu.Power);
             if (WifiAdapter != null) powers.Add(WifiAdapter.Power);
             if (CpuCooler != null) powers.Add(CpuCooler.Power);
+            if (PowerSupply != null) powers.Add(PowerSupply.Power);
             powers.AddRange(GraphicCards.Select(x => x.Power));
             powers.AddRange(StorageDrives.Select(x => x.Power));
             powers.AddRange(Ram.Select(x => x.Power));
@@ -113,6 +114,7 @@ public class BaseMotherboard : IMotherboard
     public ValidationResult Validate()
     {
         var warnings = new List<string>();
+        var failures = new List<string>();
 
         Func<ValidationResult>[] checkMethods = new[]
         {
@@ -127,18 +129,29 @@ public class BaseMotherboard : IMotherboard
 
         foreach (Func<ValidationResult> check in checkMethods)
         {
-            ValidationResult result = check();
-            switch (result)
+            ValidationResult validationResult = check();
+            switch (validationResult)
             {
-                case ValidationResult.Failure:
-                    return result;
+                case ValidationResult.Failure failure:
+                    failures.Add(failure.Message);
+                    break;
                 case ValidationResult.Warning warning:
                     warnings.Add(warning.Message);
                     break;
             }
         }
 
-        return warnings.Any() ? new ValidationResult.Warning(string.Join("\n", warnings)) : new ValidationResult.Success();
+        if (failures.Any())
+        {
+            return new ValidationResult.Failure(string.Join("\n", failures));
+        }
+
+        if (warnings.Any())
+        {
+            return new ValidationResult.Warning(string.Join("\n", warnings));
+        }
+
+        return new ValidationResult.Success();
     }
 
     private ValidationResult CheckCpuCoolerCompatibility()
