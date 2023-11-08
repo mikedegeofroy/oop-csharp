@@ -1,5 +1,4 @@
 using Itmo.ObjectOrientedProgramming.Lab3.Message;
-using Itmo.ObjectOrientedProgramming.Lab3.Recipient;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Topic;
 

@@ -13,4 +13,9 @@ public class Message : IMessage
     }
 
     public Priority Priority { get; }
+
+    public string Render()
+    {
+        return _header + '\n' + _body;
+    }
 }
