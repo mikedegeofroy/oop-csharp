@@ -1,7 +1,6 @@
 namespace Itmo.ObjectOrientedProgramming.Lab3.Message;
 
-public interface IMessage
+public interface IMessage : IRenderable
 {
     public Priority Priority { get; }
-    public string Render();
 }
