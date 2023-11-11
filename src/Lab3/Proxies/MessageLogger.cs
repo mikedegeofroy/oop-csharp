@@ -22,7 +22,7 @@ public class MessageLogger : IRecipient
         _recipient.HandleMessage(message);
     }
 
-    private void Log(IMessage message)
+    private void Log(IRenderable message)
     {
         _logger.Log(message.Render());
     }
