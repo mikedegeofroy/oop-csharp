@@ -2,8 +2,6 @@ using Itmo.ObjectOrientedProgramming.Lab3.Message;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Filter;
 
-// TODO
-// fix this shit, make priorities a number
 public class PriorityFilter : IFilter
 {
     private int _priorityFilter;

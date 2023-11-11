@@ -1,12 +1,18 @@
-using System;
 using Itmo.ObjectOrientedProgramming.Lab3.Message;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Messenger;
 
-public class Messenger : IMessenger
+public class Messenger : IRecipient
 {
+    private readonly IRecipient _adapter;
+
+    public Messenger(IRecipient adapter)
+    {
+        _adapter = adapter;
+    }
+
     public void HandleMessage(IMessage message)
     {
-        Console.WriteLine("Messenger: \n" + message.Render());
+        _adapter.HandleMessage(message);
     }
 }

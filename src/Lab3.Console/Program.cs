@@ -4,11 +4,10 @@ using Itmo.ObjectOrientedProgramming.Lab3.Logger;
 using Itmo.ObjectOrientedProgramming.Lab3.Message;
 using Itmo.ObjectOrientedProgramming.Lab3.User;
 
-var message = new Message("Good morning!", "This is a body.", Priority.High);
+var message = new Message("Good morning!", "This is a body.", 2);
 var user = new User();
 var logger = new Logger();
-var filter = new PriorityFilter();
-filter.SetFilter(3);
+var filter = new PriorityFilter(3);
 
 var proxy2 = new MessageLogger(user, logger);
 var proxy1 = new MessageFilter(proxy2, filter);
