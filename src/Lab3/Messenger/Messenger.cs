@@ -7,7 +7,6 @@ public class Messenger : IMessenger
 {
     public void HandleMessage(IMessage message)
     {
-        message = message ?? throw new ArgumentNullException(nameof(message));
         Console.WriteLine("Messenger: \n" + message.Render());
     }
 }

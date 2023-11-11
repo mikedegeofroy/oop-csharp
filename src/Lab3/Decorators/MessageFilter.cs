@@ -1,8 +1,7 @@
-using System;
 using Itmo.ObjectOrientedProgramming.Lab3.Filter;
 using Itmo.ObjectOrientedProgramming.Lab3.Message;
 
-namespace Itmo.ObjectOrientedProgramming.Lab3.Proxies;
+namespace Itmo.ObjectOrientedProgramming.Lab3.Decorators;
 
 public class MessageFilter : IRecipient
 {
@@ -17,7 +16,6 @@ public class MessageFilter : IRecipient
 
     public void HandleMessage(IMessage message)
     {
-        message = message ?? throw new ArgumentNullException(nameof(message));
         if (_filter.Filter(message)) _recipient.HandleMessage(message);
     }
 }

@@ -1,8 +1,7 @@
-using System;
 using Itmo.ObjectOrientedProgramming.Lab3.Logger;
 using Itmo.ObjectOrientedProgramming.Lab3.Message;
 
-namespace Itmo.ObjectOrientedProgramming.Lab3.Proxies;
+namespace Itmo.ObjectOrientedProgramming.Lab3.Decorators;
 
 public class MessageLogger : IRecipient
 {
@@ -17,7 +16,6 @@ public class MessageLogger : IRecipient
 
     public void HandleMessage(IMessage message)
     {
-        message = message ?? throw new ArgumentNullException(nameof(message));
         Log(message);
         _recipient.HandleMessage(message);
     }
