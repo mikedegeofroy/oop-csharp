@@ -4,5 +4,5 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Filter;
 
 public interface IFilter
 {
-    public bool Filter(IMessage message);
+    bool Filter(IMessage message);
 }

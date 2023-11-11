@@ -2,7 +2,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.User;
 
 public interface IUser : IRecipient
 {
-    public void MarkAsRead(int index);
+    void MarkAsRead(int index);
 
-    public InboxMessage GetMessage(int index);
+    InboxMessage GetMessage(int index);
 }
