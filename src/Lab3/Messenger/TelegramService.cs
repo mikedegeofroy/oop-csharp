@@ -4,8 +4,15 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Messenger;
 
 public class TelegramService
 {
-    public void SendMessage(string message, string uid)
+    private string _uid;
+
+    public TelegramService(string uid)
     {
-        Console.WriteLine(message + "sent to: " + uid);
+        _uid = uid;
+    }
+
+    public void SendMessage(string message)
+    {
+        Console.WriteLine(message + "sent to: " + _uid);
     }
 }

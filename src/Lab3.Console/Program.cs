@@ -1,4 +1,6 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab3.Decorators;
+﻿using System.Drawing;
+using Itmo.ObjectOrientedProgramming.Lab3.Decorators;
+using Itmo.ObjectOrientedProgramming.Lab3.Display;
 using Itmo.ObjectOrientedProgramming.Lab3.Filter;
 using Itmo.ObjectOrientedProgramming.Lab3.Logger;
 using Itmo.ObjectOrientedProgramming.Lab3.Message;
@@ -13,3 +15,8 @@ var proxy2 = new MessageLogger(user, logger);
 var proxy1 = new MessageFilter(proxy2, filter);
 
 proxy1.HandleMessage(message);
+
+var display = new DisplayToFile();
+
+display.SetColor(Color.Red);
+display.Out("Hello!");

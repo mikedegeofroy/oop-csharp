@@ -13,6 +13,6 @@ public class TelegramAdapter : IRecipient
 
     public void HandleMessage(IMessage message)
     {
-        _telegramService.SendMessage(message.Render(), "some uid");
+        _telegramService.SendMessage(message.Render());
     }
 }
