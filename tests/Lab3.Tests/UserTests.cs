@@ -1,3 +1,4 @@
+using Itmo.ObjectOrientedProgramming.Lab3.User;
 using Xunit;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Tests;
@@ -34,7 +35,7 @@ public class UserTests
     }
 
     [Fact]
-    public void User_Fail_WhenReceivedMessageIsRead()
+    public void User_Fail_WhenMessageIsAlreadyRead()
     {
         // Arrange
         var message = new Message.Message("Header", "Body", 1);
@@ -45,11 +46,6 @@ public class UserTests
         user.MarkAsRead(0);
 
         // Assert
-        Assert.True(user.GetMessage(0).Read);
-    }
-
-    [Fact]
-    public void User_Fail_WhenMessageIsAlreadyRead()
-    {
+        Assert.True(user.MarkAsRead(0) is MessageReadResult.Failed);
     }
 }
