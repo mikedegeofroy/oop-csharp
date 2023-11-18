@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab3.Message;
@@ -19,11 +18,12 @@ public class User : IUser
         _inbox.Add(new InboxMessage(message, false));
     }
 
-    public void MarkAsRead(int index)
+    public MessageReadResult MarkAsRead(int index)
     {
         InboxMessage message = _inbox.ElementAt(index);
-        if (message.Read) throw new InvalidOperationException("The message was already read.");
+        if (message.Read) return new MessageReadResult.Failed("The message was already read.");
         message.Read = true;
+        return new MessageReadResult.Success(message);
     }
 
     public InboxMessage GetMessage(int index)
