@@ -7,16 +7,9 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.Commands;
 
 public class Tree : ICommand
 {
-    private readonly FileSystem.FileSystem _fileSystem;
-
-    public Tree(FileSystem.FileSystem fileSystem)
+    public void Execute(FileSystem.FileSystem fileSystem)
     {
-        _fileSystem = fileSystem;
-    }
-
-    public void Execute()
-    {
-        Directory root = _fileSystem.CurrentDirectory ?? new Directory("/");
+        Directory root = fileSystem.CurrentDirectory ?? new Directory("/");
         PrintDirectory(root, 0, new List<bool>());
     }
 

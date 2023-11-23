@@ -1,18 +1,20 @@
+using Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Strategies;
+
 namespace Itmo.ObjectOrientedProgramming.Lab4.Commands;
 
 public class Connect : ICommand
 {
-    private readonly FileSystem.FileSystem _fs;
     private readonly string _location;
+    private readonly IFileSystemStrategy _strategy;
 
-    public Connect(FileSystem.FileSystem fs, string location)
+    public Connect(string location, IFileSystemStrategy strategy)
     {
-        _fs = fs;
         _location = location;
+        _strategy = strategy;
     }
 
-    public void Execute()
+    public void Execute(FileSystem.FileSystem fileSystem)
     {
-        _fs.Connect(_location);
+        fileSystem.Connect(_location, _strategy);
     }
 }

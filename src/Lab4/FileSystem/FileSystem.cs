@@ -6,18 +6,19 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.FileSystem;
 
 public class FileSystem
 {
-    private readonly IFileSystemStrategy _fileSystemStrategy;
+    private IFileSystemStrategy _fileSystemStrategy;
 
-    public FileSystem(IFileSystemStrategy fileSystemStrategy)
+    public FileSystem()
     {
-        _fileSystemStrategy = fileSystemStrategy;
+        _fileSystemStrategy = new DefaultFileSystemStrategy();
     }
 
     public Directory? Root { get; private set; }
     public Directory? CurrentDirectory { get; private set; }
 
-    public void Connect(string location)
+    public void Connect(string location, IFileSystemStrategy fileSystemStrategy)
     {
+        _fileSystemStrategy = fileSystemStrategy;
         Root = _fileSystemStrategy.Map(location);
         CurrentDirectory = Root;
     }
