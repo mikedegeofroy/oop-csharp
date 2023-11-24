@@ -1,41 +1,86 @@
-using System;
+using Itmo.ObjectOrientedProgramming.Lab4.CommandParser.ArgumentHandlers;
+using Itmo.ObjectOrientedProgramming.Lab4.CommandParser.ArgumentHandlers.Connect;
+using Itmo.ObjectOrientedProgramming.Lab4.CommandParser.ArgumentHandlers.File;
+using Itmo.ObjectOrientedProgramming.Lab4.CommandParser.ArgumentHandlers.Tree;
 using Itmo.ObjectOrientedProgramming.Lab4.CommandParser.CommandHandlers;
+using Itmo.ObjectOrientedProgramming.Lab4.Commands;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.CommandParser;
 
 public class CommandParser
 {
-    private readonly IHandler _head;
+    private readonly ICommandHandler _head;
+    private readonly FileSystem.FileSystem _fileSystem;
 
-    public CommandParser()
+    public CommandParser(FileSystem.FileSystem fileSystem)
     {
+        _fileSystem = fileSystem;
         _head = BuildCommandHandlerChain();
     }
 
-    public void Parse(string command)
+    public ParserOutput Parse(string command)
     {
         HandlingResult result = _head.Handle(command);
-        var fileSystem = new FileSystem.FileSystem();
         switch (result)
         {
             case HandlingResult.Success success:
-                success.Command.Execute(fileSystem);
+                CommandOutput output = success.Command.Execute(_fileSystem);
+                switch (output)
+                {
+                    case CommandOutput.Success:
+                        return new ParserOutput.SuccessfulExecution(output.Message);
+                    case CommandOutput.Failure:
+                        return new ParserOutput.FailedExecution(output.Message);
+                }
+
                 break;
             case HandlingResult.Failure failure:
-                Console.WriteLine(failure.Message);
-                break;
+                return new ParserOutput.ParsingError(failure.Message);
         }
+
+        return new ParserOutput.ParsingError("Unknown error.");
     }
 
-    private static IHandler BuildCommandHandlerChain()
+    private static ICommandHandler BuildCommandHandlerChain()
     {
-        var connectHandler = new ConnectHandler();
-        var disconnectHandler = new DisconnectHandler();
-        var terminationHandler = new TerminationHandler();
+        var head = new ConnectCommandHandler();
+        head.SetArgumentHandler(BuildConnectArgumentHandlerChain())
+            .SetNext(new FileCommandHandler())
+            .SetArgumentHandler(BuildFileArgumentHandlerChain())
+            .SetNext(new TreeCommandHandler())
+            .SetArgumentHandler(BuildTreeArgumentHandlerChain())
+            .SetNext(new DisconnectCommandHandler())
+            .SetNext(new PrintWorkingDirectoryHandler())
+            .SetNext(new UnknownCommandHandler());
+        return head;
+    }
 
-        connectHandler.SetNext(disconnectHandler);
-        disconnectHandler.SetNext(terminationHandler);
+    private static IArgumentHandler BuildConnectArgumentHandlerChain()
+    {
+        var head = new ConnectLocationHandler();
+        head.SetNext(new ConnectStrategyHandler())
+            .SetNext(new UnknownArgumentHandler());
+        return head;
+    }
 
-        return connectHandler;
+    private static IArgumentHandler BuildFileArgumentHandlerChain()
+    {
+        var head = new FileCopyHandler();
+        head.SetNext(new FileDeleteHandler())
+            .SetNext(new FileMoveHandler())
+            .SetNext(new FileRenameHandler())
+            .SetNext(new FileShowHandler())
+            .SetNext(new FileShowModeHandler())
+            .SetNext(new UnknownArgumentHandler());
+        return head;
+    }
+
+    private static IArgumentHandler BuildTreeArgumentHandlerChain()
+    {
+        var head = new TreeGoToHandler();
+        head.SetNext(new TreeListDepthHandler())
+            .SetNext(new TreeListLocationHandler())
+            .SetNext(new UnknownArgumentHandler());
+        return head;
     }
 }
