@@ -1,29 +1,49 @@
+using System;
 using System.Linq;
+using Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Exceptions;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Strategies;
 
 public class MacOsFileSystemStrategy : IFileSystemStrategy
 {
     private string _localPath = string.Empty;
-    public Directory Map(string location)
+    public Directory Map(string path)
+    {
+        return MapDirectory(new Directory("/"), _localPath + "/" + path);
+    }
+
+    public void Mount(string location)
     {
         _localPath = location;
-        return MapDirectory(new Directory("/"), location);
     }
 
     public byte[] GetFileData(string path)
     {
-        return System.IO.File.ReadAllBytes(_localPath + "/" + path);
+        try
+        {
+            return System.IO.File.ReadAllBytes(_localPath + "/" + path);
+        }
+        catch (UnauthorizedAccessException)
+        {
+            throw new InsufficientPermissionsException("Insufficient permissions.");
+        }
     }
 
-    public void WriteFileData(string path, byte[] fileData)
+    public void WriteFileData(string? path, byte[] fileData)
     {
         System.IO.File.WriteAllBytes(_localPath + "/" + path, fileData);
     }
 
-    public void DeleteFile(string path)
+    public void DeleteFile(string? path)
     {
-        System.IO.File.Delete(_localPath + "/" + path);
+        try
+        {
+            System.IO.File.Delete(_localPath + "/" + path);
+        }
+        catch (UnauthorizedAccessException)
+        {
+            throw new InsufficientPermissionsException("Insufficient permissions.");
+        }
     }
 
     private static Directory MapDirectory(Directory directory, string location)
@@ -32,7 +52,7 @@ public class MacOsFileSystemStrategy : IFileSystemStrategy
         foreach (string dir in dirs)
         {
             string name = dir.Split("/").Last();
-            directory.AddSubDirectory(MapDirectory(new Directory(name), dir));
+            directory.AddSubDirectory(MapDirectory(new Directory(name, directory), dir));
         }
 
         string[] files = System.IO.Directory.GetFiles(location);

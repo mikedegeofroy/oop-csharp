@@ -2,7 +2,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Strategies;
 
 public class DefaultFileSystemStrategy : IFileSystemStrategy
 {
-    public Directory Map(string location)
+    public Directory Map(string path)
     {
         throw new System.NotImplementedException();
     }
@@ -12,12 +12,17 @@ public class DefaultFileSystemStrategy : IFileSystemStrategy
         throw new System.NotImplementedException();
     }
 
-    public void WriteFileData(string path, byte[] fileData)
+    public void Mount(string location)
     {
         throw new System.NotImplementedException();
     }
 
-    public void DeleteFile(string path)
+    public void WriteFileData(string? path, byte[] fileData)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void DeleteFile(string? path)
     {
         throw new System.NotImplementedException();
     }
