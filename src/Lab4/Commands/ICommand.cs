@@ -2,5 +2,5 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.Commands;
 
 public interface ICommand
 {
-    void Execute(FileSystem.FileSystem fileSystem);
+    CommandOutput Execute(FileSystem.FileSystem fileSystem);
 }
