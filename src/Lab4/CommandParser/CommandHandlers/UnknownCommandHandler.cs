@@ -5,9 +5,9 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.CommandParser.CommandHandlers;
 
 public class UnknownCommandHandler : ICommandHandler
 {
-    public HandlingResult Handle(string command)
+    public ParserOutput Handle(string command)
     {
-        return new HandlingResult.Failure("There was an error parsing the command, please try again.");
+        return new ParserOutput.Failure("There was an error parsing the command, please try again.");
     }
 
     public ICommandHandler SetNext(ICommandHandler commandHandler)

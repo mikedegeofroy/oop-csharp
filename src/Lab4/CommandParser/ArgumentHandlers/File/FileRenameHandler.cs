@@ -9,7 +9,7 @@ public class FileRenameHandler : IArgumentHandler
 {
     private IArgumentHandler? _next;
 
-    public HandlingResult Handle(string command, ICommandBuilder builder)
+    public ParserOutput Handle(string command, ICommandBuilder builder)
     {
         if (builder is not Rename.Builder renameBuilder)
         {
@@ -23,7 +23,7 @@ public class FileRenameHandler : IArgumentHandler
         renameBuilder.SetSource(options[location]);
         renameBuilder.SetDestination(options[location + 1]);
 
-        return new HandlingResult.Success(renameBuilder.Build());
+        return new ParserOutput.Success(renameBuilder.Build());
     }
 
     public IArgumentHandler SetNext(IArgumentHandler handler)

@@ -9,7 +9,7 @@ public class ConnectStrategyHandler : IArgumentHandler
 {
     private IArgumentHandler? _next;
 
-    public HandlingResult Handle(string command, ICommandBuilder builder)
+    public ParserOutput Handle(string command, ICommandBuilder builder)
     {
         if (builder is not Commands.Connect.Builder connectBuilder)
             throw new ArgumentException("bad usage");
@@ -17,7 +17,7 @@ public class ConnectStrategyHandler : IArgumentHandler
         if (!FindFlag("-m", command))
         {
             connectBuilder.SetStrategy(new MacOsFileSystemStrategy());
-            return new HandlingResult.Success(connectBuilder.Build());
+            return new ParserOutput.Success(connectBuilder.Build());
         }
 
         var options = command.Split(" ").ToList();
@@ -29,10 +29,10 @@ public class ConnectStrategyHandler : IArgumentHandler
         }
         else
         {
-            return new HandlingResult.Failure("Unknown mounting mode: " + options[location]);
+            return new ParserOutput.Failure("Unknown mounting mode: " + options[location]);
         }
 
-        return new HandlingResult.Success(connectBuilder.Build());
+        return new ParserOutput.Success(connectBuilder.Build());
     }
 
     public IArgumentHandler SetNext(IArgumentHandler handler)

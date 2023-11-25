@@ -9,7 +9,7 @@ public class TreeListLocationHandler : IArgumentHandler
 {
     private IArgumentHandler? _next;
 
-    public HandlingResult Handle(string command, ICommandBuilder builder)
+    public ParserOutput Handle(string command, ICommandBuilder builder)
     {
         if (builder is not List.Builder listBuilder)
         {
@@ -21,7 +21,7 @@ public class TreeListLocationHandler : IArgumentHandler
         int location = options.FindIndex(x => x == "list") + 1;
         listBuilder.SetDirectory(location >= options.Count ? "." : options[location]);
 
-        return new HandlingResult.Success(listBuilder.Build());
+        return new ParserOutput.Success(listBuilder.Build());
     }
 
     public IArgumentHandler SetNext(IArgumentHandler handler)

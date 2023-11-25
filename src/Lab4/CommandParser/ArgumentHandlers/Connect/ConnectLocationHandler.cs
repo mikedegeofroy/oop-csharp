@@ -7,14 +7,14 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.CommandParser.ArgumentHandlers.Con
 public class ConnectLocationHandler : IArgumentHandler
 {
     private IArgumentHandler? _next;
-    public HandlingResult Handle(string command, ICommandBuilder builder)
+    public ParserOutput Handle(string command, ICommandBuilder builder)
     {
         var options = command.Split(" ").ToList();
         int location = options.FindIndex(x => x == "connect") + 1;
         if (builder is Commands.Connect.Builder connectBuilder)
         {
             if (location >= options.Count)
-                return new HandlingResult.Failure("Please supply a location to mount on.");
+                return new ParserOutput.Failure("Please supply a location to mount on.");
             connectBuilder.SetLocation(options[location]);
         }
         else

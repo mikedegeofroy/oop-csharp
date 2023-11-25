@@ -9,7 +9,7 @@ public class FileCopyHandler : IArgumentHandler
 {
     private IArgumentHandler? _next;
 
-    public HandlingResult Handle(string command, ICommandBuilder builder)
+    public ParserOutput Handle(string command, ICommandBuilder builder)
     {
         if (builder is not Copy.Builder copyBuilder)
         {
@@ -23,7 +23,7 @@ public class FileCopyHandler : IArgumentHandler
         copyBuilder.SetSource(options[location]);
         copyBuilder.SetDestination(options[location + 1]);
 
-        return new HandlingResult.Success(copyBuilder.Build());
+        return new ParserOutput.Success(copyBuilder.Build());
     }
 
     public IArgumentHandler SetNext(IArgumentHandler handler)

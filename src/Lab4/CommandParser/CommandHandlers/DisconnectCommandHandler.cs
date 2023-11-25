@@ -9,10 +9,10 @@ public class DisconnectCommandHandler : ICommandHandler
 {
     private ICommandHandler? _next;
 
-    public HandlingResult Handle(string command)
+    public ParserOutput Handle(string command)
     {
         if (FindKeyword("disconnect", command))
-            return new HandlingResult.Success(new Disconnect());
+            return new ParserOutput.Success(new Disconnect());
 
         return _next?.Handle(command)
                ?? throw new ArgumentException("Chain not terminated gracefully.");

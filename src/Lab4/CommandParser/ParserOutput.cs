@@ -1,8 +1,9 @@
+using Itmo.ObjectOrientedProgramming.Lab4.Commands;
+
 namespace Itmo.ObjectOrientedProgramming.Lab4.CommandParser;
 
-public record ParserOutput(string Message)
+public abstract record ParserOutput
 {
-    public record SuccessfulExecution(string Message) : ParserOutput(Message);
-    public record FailedExecution(string Message) : ParserOutput(Message);
-    public record ParsingError(string Message) : ParserOutput(Message);
+    public sealed record Success(ICommand Command) : ParserOutput;
+    public sealed record Failure(string Message) : ParserOutput;
 }

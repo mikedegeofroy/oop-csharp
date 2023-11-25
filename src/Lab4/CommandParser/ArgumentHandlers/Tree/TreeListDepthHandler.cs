@@ -9,7 +9,7 @@ public class TreeListDepthHandler : IArgumentHandler
 {
     private IArgumentHandler? _next;
 
-    public HandlingResult Handle(string command, ICommandBuilder builder)
+    public ParserOutput Handle(string command, ICommandBuilder builder)
     {
         if (builder is not List.Builder listBuilder)
         {
@@ -23,7 +23,7 @@ public class TreeListDepthHandler : IArgumentHandler
             int location = options.FindIndex(x => x == "-d") + 1;
             bool result = int.TryParse(options[location], out int depth);
             if (!result)
-                return new HandlingResult.Failure("Please set a valid depth.");
+                return new ParserOutput.Failure("Please set a valid depth.");
             options.RemoveAt(location);
             options.RemoveAt(location - 1);
             command = string.Join(" ", options);

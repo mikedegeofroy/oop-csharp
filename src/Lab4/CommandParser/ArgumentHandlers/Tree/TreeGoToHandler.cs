@@ -9,7 +9,7 @@ public class TreeGoToHandler : IArgumentHandler
 {
     private IArgumentHandler? _next;
 
-    public HandlingResult Handle(string command, ICommandBuilder builder)
+    public ParserOutput Handle(string command, ICommandBuilder builder)
     {
         if (builder is not ChangeDirectory.Builder changeDirectoryBuilder)
         {
@@ -21,10 +21,10 @@ public class TreeGoToHandler : IArgumentHandler
         int location = options.FindIndex(x => x == "goto") + 1;
 
         if (location >= options.Count)
-            return new HandlingResult.Failure("Please supply a valid directory.");
+            return new ParserOutput.Failure("Please supply a valid directory.");
         changeDirectoryBuilder.SetLocation(options[location]);
 
-        return new HandlingResult.Success(changeDirectoryBuilder.Build());
+        return new ParserOutput.Success(changeDirectoryBuilder.Build());
     }
 
     public IArgumentHandler SetNext(IArgumentHandler handler)

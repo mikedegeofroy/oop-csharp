@@ -10,7 +10,7 @@ public class FileShowModeHandler : IArgumentHandler
 {
     private IArgumentHandler? _next;
 
-    public HandlingResult Handle(string command, ICommandBuilder builder)
+    public ParserOutput Handle(string command, ICommandBuilder builder)
     {
         if (builder is not Show.Builder showBuilder)
         {
@@ -24,7 +24,7 @@ public class FileShowModeHandler : IArgumentHandler
         if (options[location] == "console")
             showBuilder.SetPrinter(new ConsolePrinter());
 
-        return new HandlingResult.Success(showBuilder.Build());
+        return new ParserOutput.Success(showBuilder.Build());
     }
 
     public IArgumentHandler SetNext(IArgumentHandler handler)

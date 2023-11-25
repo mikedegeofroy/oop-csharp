@@ -13,6 +13,14 @@ while (true)
     if (!string.IsNullOrEmpty(command))
     {
         ParserOutput output = parser.Parse(command);
-        Console.WriteLine(output.Message);
+        switch (output)
+        {
+            case ParserOutput.Success success:
+                Console.WriteLine(success.Command.Execute(fileSystem).Message);
+                break;
+            case ParserOutput.Failure failure:
+                Console.WriteLine(failure.Message);
+                break;
+        }
     }
 }

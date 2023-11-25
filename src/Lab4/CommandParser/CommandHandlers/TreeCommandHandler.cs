@@ -10,7 +10,7 @@ public class TreeCommandHandler : ICommandHandler
     private ICommandHandler? _next;
     private IArgumentHandler? _argumentHandler;
 
-    public HandlingResult Handle(string command)
+    public ParserOutput Handle(string command)
     {
         if (FindKeyword("goto", command))
         {

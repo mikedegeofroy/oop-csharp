@@ -9,7 +9,7 @@ public class ConnectCommandHandler : ICommandHandler
 {
     private ICommandHandler? _next;
     private IArgumentHandler? _argumentHandler;
-    public HandlingResult Handle(string command)
+    public ParserOutput Handle(string command)
     {
         if (FindKeyword("connect", command))
         {

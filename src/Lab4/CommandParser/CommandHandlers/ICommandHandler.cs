@@ -4,7 +4,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.CommandParser.CommandHandlers;
 
 public interface ICommandHandler
 {
-    HandlingResult Handle(string command);
+    ParserOutput Handle(string command);
 
     ICommandHandler SetNext(ICommandHandler commandHandler);
 

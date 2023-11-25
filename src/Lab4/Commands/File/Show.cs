@@ -8,16 +8,19 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.Commands.File;
 public class Show : ICommand
 {
     private readonly Path _source;
+    private readonly IPrinter _printer;
 
-    public Show(Path source)
+    public Show(Path source, IPrinter printer)
     {
         _source = source;
+        _printer = printer;
     }
 
     public CommandOutput Execute(FileSystem.FileSystem fileSystem)
     {
         byte[] file = fileSystem.GetFileData(_source);
-        return new CommandOutput.Success(Encoding.UTF8.GetString(file, 0, file.Length));
+        _printer.Out(Encoding.UTF8.GetString(file, 0, file.Length));
+        return new CommandOutput.Success("Successfully outputted file.");
     }
 
     public class Builder : ICommandBuilder
@@ -40,7 +43,8 @@ public class Show : ICommand
         public ICommand Build()
         {
             if (_source == null) throw new ArgumentException();
-            return new Show(_source);
+            if (_printer == null) throw new ArgumentException();
+            return new Show(_source, _printer);
         }
     }
 }

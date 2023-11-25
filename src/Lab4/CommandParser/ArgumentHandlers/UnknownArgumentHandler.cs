@@ -5,9 +5,9 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.CommandParser.ArgumentHandlers;
 
 public class UnknownArgumentHandler : IArgumentHandler
 {
-    public HandlingResult Handle(string command, ICommandBuilder builder)
+    public ParserOutput Handle(string command, ICommandBuilder builder)
     {
-        return new HandlingResult.Failure("Unknown argument: " + command);
+        return new ParserOutput.Failure("Unknown argument: " + command);
     }
 
     public IArgumentHandler SetNext(IArgumentHandler handler)

@@ -9,11 +9,11 @@ public class PrintWorkingDirectoryHandler : ICommandHandler
 {
     private ICommandHandler? _next;
 
-    public HandlingResult Handle(string command)
+    public ParserOutput Handle(string command)
     {
         if (FindKeyword("pwd", command))
         {
-            return new HandlingResult.Success(new PrintWorkingDirectory());
+            return new ParserOutput.Success(new PrintWorkingDirectory());
         }
 
         return _next?.Handle(command)

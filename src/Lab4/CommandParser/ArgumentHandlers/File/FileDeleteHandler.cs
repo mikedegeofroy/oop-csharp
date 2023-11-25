@@ -9,7 +9,7 @@ public class FileDeleteHandler : IArgumentHandler
 {
     private IArgumentHandler? _next;
 
-    public HandlingResult Handle(string command, ICommandBuilder builder)
+    public ParserOutput Handle(string command, ICommandBuilder builder)
     {
         if (builder is not Delete.Builder deleteBuilder)
         {
@@ -22,7 +22,7 @@ public class FileDeleteHandler : IArgumentHandler
 
         deleteBuilder.SetFile(options[location]);
 
-        return new HandlingResult.Success(deleteBuilder.Build());
+        return new ParserOutput.Success(deleteBuilder.Build());
     }
 
     public IArgumentHandler SetNext(IArgumentHandler handler)

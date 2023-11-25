@@ -20,25 +20,7 @@ public class CommandParser
 
     public ParserOutput Parse(string command)
     {
-        HandlingResult result = _head.Handle(command);
-        switch (result)
-        {
-            case HandlingResult.Success success:
-                CommandOutput output = success.Command.Execute(_fileSystem);
-                switch (output)
-                {
-                    case CommandOutput.Success:
-                        return new ParserOutput.SuccessfulExecution(output.Message);
-                    case CommandOutput.Failure:
-                        return new ParserOutput.FailedExecution(output.Message);
-                }
-
-                break;
-            case HandlingResult.Failure failure:
-                return new ParserOutput.ParsingError(failure.Message);
-        }
-
-        return new ParserOutput.ParsingError("Unknown error.");
+        return _head.Handle(command);
     }
 
     private static ICommandHandler BuildCommandHandlerChain()
