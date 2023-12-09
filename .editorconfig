@@ -55,6 +55,9 @@ csharp_new_line_before_members_in_object_initializers = false
 # SA1502: Element should not be on a single line
 dotnet_diagnostic.SA1502.severity = silent
 
+# Nested Classes
+dotnet_diagnostic.CA1034.severity = none
+
 dotnet_style_prefer_auto_properties = true:suggestion
 dotnet_style_prefer_is_null_check_over_reference_equality_method = true:warning
 dotnet_style_null_propagation = true:warning
