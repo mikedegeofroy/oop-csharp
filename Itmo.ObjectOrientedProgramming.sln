@@ -47,6 +47,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATM.Application.Abstraction
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATM.Application.Contracts", "src\Lab5\ATM.Application.Contracts\ATM.Application.Contracts.csproj", "{D1EA8947-0596-48FF-A5AF-B6B51C63A484}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATM.Infrastructure.DataAccess", "src\Lab5\ATM.Infrastructure.DataAccess\ATM.Infrastructure.DataAccess.csproj", "{9B57FEE1-2A6D-49D8-8C48-AA3993BD1F82}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{E078567B-7E99-44F0-BE59-861B99056106}"
+	ProjectSection(SolutionItems) = preProject
+		src\Lab5\.env = src\Lab5\.env
+		src\Lab5\docker-compose.yaml = src\Lab5\docker-compose.yaml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATM.Presentation.Console", "src\Lab5\ATM.Presentation.Console\ATM.Presentation.Console.csproj", "{581A4324-47EC-4DF7-9839-F58450EA54F0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +81,9 @@ Global
 		{8469CC97-19D1-4ABA-9213-99F03DA8BBF2} = {D6F0AF28-4B74-4CEF-BAE0-631C60979762}
 		{249A7B78-E81D-4127-901F-207159D59BCB} = {D6F0AF28-4B74-4CEF-BAE0-631C60979762}
 		{D1EA8947-0596-48FF-A5AF-B6B51C63A484} = {D6F0AF28-4B74-4CEF-BAE0-631C60979762}
+		{9B57FEE1-2A6D-49D8-8C48-AA3993BD1F82} = {A882AA78-975B-4BF0-9193-5A0C5365974C}
+		{E078567B-7E99-44F0-BE59-861B99056106} = {21E20419-0C74-46BC-9D7D-A24CEEC29ACC}
+		{581A4324-47EC-4DF7-9839-F58450EA54F0} = {08E62A91-F7B4-4FE8-A1F8-BFD64F7E3A9E}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{EABA4888-E6C1-4ACC-856E-FBD34CEA3EDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -129,5 +142,13 @@ Global
 		{D1EA8947-0596-48FF-A5AF-B6B51C63A484}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1EA8947-0596-48FF-A5AF-B6B51C63A484}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1EA8947-0596-48FF-A5AF-B6B51C63A484}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B57FEE1-2A6D-49D8-8C48-AA3993BD1F82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B57FEE1-2A6D-49D8-8C48-AA3993BD1F82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B57FEE1-2A6D-49D8-8C48-AA3993BD1F82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B57FEE1-2A6D-49D8-8C48-AA3993BD1F82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{581A4324-47EC-4DF7-9839-F58450EA54F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{581A4324-47EC-4DF7-9839-F58450EA54F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{581A4324-47EC-4DF7-9839-F58450EA54F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{581A4324-47EC-4DF7-9839-F58450EA54F0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

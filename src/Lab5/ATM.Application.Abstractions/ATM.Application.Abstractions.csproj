@@ -7,4 +7,8 @@
         <RootNamespace>AutomatedTellerMachine.Abstractions</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\ATM.Application.Models\ATM.Application.Models.csproj" />
+    </ItemGroup>
+
 </Project>

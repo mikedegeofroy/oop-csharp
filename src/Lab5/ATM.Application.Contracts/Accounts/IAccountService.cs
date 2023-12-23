@@ -1,8 +1,9 @@
-using AutomatedTellerMachine.Models;
-
 namespace AutomatedTellerMachine.Contracts.Accounts;
 
 public interface IAccountService
 {
-    IReadOnlyCollection<Operation> GetAllOperationsById(string id);
+    LoginResult Login(string id, string pin);
+
+    double GetBalance(string id, string token);
+    string Create(string pin);
 }
