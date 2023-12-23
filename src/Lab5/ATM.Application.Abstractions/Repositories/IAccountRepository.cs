@@ -4,6 +4,9 @@ namespace AutomatedTellerMachine.Abstractions.Repositories;
 
 public interface IAccountRepository
 {
-    Account GetAccountById(string id);
-    Account CreateAccount(string pin);
+    Account CreateAccount(string hashedPin);
+    double GetBalanceByAccountId(long id);
+
+    void Debit(long id, double amount);
+    void Credit(long id, double amount);
 }

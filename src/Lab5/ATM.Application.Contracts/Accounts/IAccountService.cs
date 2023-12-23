@@ -1,9 +1,16 @@
+using AutomatedTellerMachine.Models;
+
 namespace AutomatedTellerMachine.Contracts.Accounts;
 
 public interface IAccountService
 {
-    LoginResult Login(string id, string pin);
+    LoginResult Login(long id, string hashedPin);
 
-    double GetBalance(string id, string token);
-    string Create(string pin);
+    double GetBalance(long id, string token);
+
+    OperationResult Credit(double amount, long id, string token);
+    OperationResult Debit(double amount, long id, string token);
+
+    IEnumerable<Operation> GetOperations(long id, string token);
+    long Create(string hashedPin);
 }

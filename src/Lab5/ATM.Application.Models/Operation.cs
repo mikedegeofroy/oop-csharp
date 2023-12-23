@@ -1,3 +1,3 @@
 namespace AutomatedTellerMachine.Models;
 
-public record Operation(string From, string To, double Amount);
+public record Operation(long Id, double Amount);

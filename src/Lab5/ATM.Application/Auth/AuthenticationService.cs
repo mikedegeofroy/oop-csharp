@@ -1,5 +1,3 @@
-using System.Security.Cryptography;
-using System.Text;
 using AutomatedTellerMachine.Abstractions.Auth;
 using AutomatedTellerMachine.Abstractions.Repositories;
 
@@ -7,7 +5,7 @@ namespace AutomatedTellerMachine.Application.Auth;
 
 public class AuthenticationService : IAuthenticationService
 {
-    private readonly Dictionary<string, string> _tokens = new();
+    private readonly Dictionary<string, long> _tokens = new();
     private readonly IPinRepository _pinRepository;
 
     public AuthenticationService(IPinRepository pinRepository)
@@ -15,16 +13,14 @@ public class AuthenticationService : IAuthenticationService
         _pinRepository = pinRepository;
     }
 
-    public GenerateResult Generate(string id, string pin)
+    public GenerateResult Generate(long id, string hashedPin)
     {
-        // check if the combination is correct
-        string localPinHash = _pinRepository.GetPinHashByUserId(id);
-        string pinHash = Convert.ToBase64String(SHA256.HashData(Encoding.UTF8.GetBytes(pin)));
+        string localPinHash = _pinRepository.GetPinHashByAccountId(id);
 
-        return localPinHash == pinHash ? new GenerateResult.Success(GenerateToken(id)) : new GenerateResult.NotFound();
+        return localPinHash == hashedPin ? new GenerateResult.Success(GenerateToken(id)) : new GenerateResult.NotFound();
     }
 
-    public ValidationResult Validate(string id, string token)
+    public ValidationResult Validate(long id, string token)
     {
         if (_tokens[token] != id) return new ValidationResult.NotFound();
 
@@ -38,7 +34,7 @@ public class AuthenticationService : IAuthenticationService
         return new ValidationResult.Success();
     }
 
-    private string GenerateToken(string id)
+    private string GenerateToken(long id)
     {
         byte[] time = BitConverter.GetBytes(DateTime.UtcNow.ToBinary());
         byte[] key = Guid.NewGuid().ToByteArray();

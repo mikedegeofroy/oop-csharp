@@ -2,14 +2,14 @@ using System.Diagnostics.CodeAnalysis;
 using ATM.Presentation.Console.CurrentAccount;
 using AutomatedTellerMachine.Contracts.Accounts;
 
-namespace ATM.Presentation.Console.Scenarios.Login;
+namespace ATM.Presentation.Console.Scenarios.Register;
 
-public class LoginScenarioProvider : IScenarioProvider
+public class RegisterScenarioProvider : IScenarioProvider
 {
     private readonly IAccountService _service;
     private readonly CurrentAccountService _currentAccountService;
 
-    public LoginScenarioProvider(
+    public RegisterScenarioProvider(
         IAccountService service, CurrentAccountService currentAccountService)
     {
         _service = service;
@@ -21,7 +21,7 @@ public class LoginScenarioProvider : IScenarioProvider
     {
         if (_currentAccountService.CurrentAccount == null)
         {
-            scenario = new LoginScenario(_service, _currentAccountService);
+            scenario = new RegisterScenario(_service, _currentAccountService);
             return true;
         }
 
