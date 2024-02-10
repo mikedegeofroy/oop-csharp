@@ -1,5 +1,6 @@
 namespace Itmo.ObjectOrientedProgramming.Lab1.Ships;
 
-public class IShip
+public interface IShip
 {
+    void TakeDamage(double points);
 }
