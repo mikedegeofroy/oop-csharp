@@ -5,6 +5,9 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Ships;
 
 public interface IShip
 {
+    bool PhotonDeflector { get;  }
+    bool AntiNitrineEmitter { get;  }
+
     IDriveEngine DriveEngine { get; }
     IJumpEngine? JumpEngine { get; }
     void TakeDamage(double points);

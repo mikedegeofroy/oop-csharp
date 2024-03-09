@@ -4,6 +4,7 @@
         <RootNamespace>Itmo.ObjectOrientedProgramming.Lab4.Tests</RootNamespace>
         <IsPackable>false</IsPackable>
         <IsTestProject>true</IsTestProject>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>

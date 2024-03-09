@@ -15,6 +15,7 @@ public class CosmoWhale : INitrineParticleObstacle
 
     public void GiveDamage(IShip ship)
     {
-        ship.TakeDamage(Damage * _population);
+        if (!ship.AntiNitrineEmitter)
+            ship.TakeDamage(Damage * _population);
     }
 }

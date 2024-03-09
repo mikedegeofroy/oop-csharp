@@ -9,13 +9,17 @@ public class Meridian : IShip
 {
     private readonly IDamagable _hull;
 
-    public Meridian()
+    public Meridian(bool photonDeflector = false, bool antiNitrineEmitter = false)
     {
+        PhotonDeflector = photonDeflector;
+        AntiNitrineEmitter = antiNitrineEmitter;
         _hull = new DeflectorClass2(new HullClass2());
         DriveEngine = new ExponentialDriveEngine();
         JumpEngine = null;
     }
 
+    public bool PhotonDeflector { get; }
+    public bool AntiNitrineEmitter { get; }
     public IDriveEngine DriveEngine { get; }
     public IJumpEngine? JumpEngine { get; }
 

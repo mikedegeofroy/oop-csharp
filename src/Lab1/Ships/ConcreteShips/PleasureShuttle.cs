@@ -8,13 +8,17 @@ public class PleasureShuttle : IShip
 {
     private readonly IDamagable _hull;
 
-    public PleasureShuttle()
+    public PleasureShuttle(bool photonDeflector = false, bool antiNitrineEmitter = false)
     {
+        PhotonDeflector = photonDeflector;
+        AntiNitrineEmitter = antiNitrineEmitter;
         _hull = new HullClass1();
         DriveEngine = new ConstantDriveEngine();
         JumpEngine = null;
     }
 
+    public bool PhotonDeflector { get; }
+    public bool AntiNitrineEmitter { get; }
     public IDriveEngine DriveEngine { get; }
     public IJumpEngine? JumpEngine { get; }
 

@@ -9,13 +9,17 @@ public class Stella : IShip
 {
     private readonly IDamagable _hull;
 
-    public Stella()
+    public Stella(bool photonDeflector = false, bool antiNitrineEmitter = false)
     {
+        PhotonDeflector = photonDeflector;
+        AntiNitrineEmitter = antiNitrineEmitter;
         _hull = new DeflectorClass1(new HullClass1());
         DriveEngine = new ConstantDriveEngine();
         JumpEngine = new OmegaJumpEngine();
     }
 
+    public bool PhotonDeflector { get; }
+    public bool AntiNitrineEmitter { get; }
     public IDriveEngine DriveEngine { get; }
     public IJumpEngine? JumpEngine { get; }
 

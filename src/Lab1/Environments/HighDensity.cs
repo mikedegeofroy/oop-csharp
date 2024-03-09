@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Itmo.ObjectOrientedProgramming.Lab1.Obstacles;
 using Itmo.ObjectOrientedProgramming.Lab1.Obstacles.Interfaces;
 using Itmo.ObjectOrientedProgramming.Lab1.Router;
 using Itmo.ObjectOrientedProgramming.Lab1.Ships;
@@ -29,6 +30,8 @@ public class HighDensity : IEnvironment
 
         foreach (IHighDensityObstacle highDensityObstacle in _obstacles)
         {
+            if (highDensityObstacle is AntimatterFlare && !ship.PhotonDeflector)
+                return new TraversalResult.DeathOfCrew();
             highDensityObstacle.GiveDamage(ship);
         }
 
