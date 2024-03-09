@@ -1,8 +1,11 @@
+using System;
 using System.Collections.Generic;
-using Itmo.ObjectOrientedProgramming.Lab1.Router.Strategies;
+using System.Linq;
+using Itmo.ObjectOrientedProgramming.Lab1.Router;
+using Itmo.ObjectOrientedProgramming.Lab1.Services.Strategies;
 using Itmo.ObjectOrientedProgramming.Lab1.Ships;
 
-namespace Itmo.ObjectOrientedProgramming.Lab1.Router;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Services;
 
 // This class should calculate all the traversal results, and pass them on to the strategy to decide what ship is best for the task.
 public class PathFinder
@@ -16,6 +19,10 @@ public class PathFinder
 
     public PathFinderResult SelectShip(Route route, IEnumerable<IShip> ships)
     {
-        throw new System.NotImplementedException();
+        List<Tuple<IShip, TraversalResult>> results = new();
+
+        results.AddRange(ships.Select(ship => new Tuple<IShip, TraversalResult>(ship, route.Traverse(ship))));
+
+        return _strategy.GetBestShip(results);
     }
 }

@@ -5,28 +5,32 @@ using Itmo.ObjectOrientedProgramming.Lab1.Obstacles.Interfaces;
 using Itmo.ObjectOrientedProgramming.Lab1.Router;
 using Itmo.ObjectOrientedProgramming.Lab1.Ships;
 using Itmo.ObjectOrientedProgramming.Lab1.Ships.Engines;
+using Itmo.ObjectOrientedProgramming.Lab1.Ships.Engines.DriveEngines;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environments;
 
-public class Cosmos : IEnvironment
+public class NitrineNebula : IEnvironment
 {
-    private readonly List<ICosmosObstacle> _obstacles;
+    private readonly List<INitrineParticleObstacle> _obstacles;
 
-    public Cosmos(IEnumerable<ICosmosObstacle> obstacles)
+    public NitrineNebula(IEnumerable<INitrineParticleObstacle> obstacles)
     {
         _obstacles = obstacles.ToList();
     }
 
-    public Cosmos()
-        : this(Enumerable.Empty<ICosmosObstacle>())
+    public NitrineNebula()
+        : this(Enumerable.Empty<INitrineParticleObstacle>())
     {
     }
 
     public TraversalResult TraverseEnvironment(IShip ship, int length)
     {
-        foreach (ICosmosObstacle highDensityObstacle in _obstacles)
+        if (ship.DriveEngine is not ExponentialDriveEngine)
+            return new TraversalResult.LostShip("The engines weren't powerful enough.");
+
+        foreach (INitrineParticleObstacle x in _obstacles)
         {
-            highDensityObstacle.GiveDamage(ship);
+            x.GiveDamage(ship);
         }
 
         EngineConsumption consumption = ship.DriveEngine.GetConsumption(length);
@@ -35,8 +39,8 @@ public class Cosmos : IEnvironment
 
     public void AddObstacle(IObstacle obstacle)
     {
-        if (obstacle is not ICosmosObstacle cosmosObstacle)
+        if (obstacle is not INitrineParticleObstacle nitrineParticleObstacle)
             throw new ArgumentException("You can't add this obstacle to this environment.");
-        _obstacles.Add(cosmosObstacle);
+        _obstacles.Add(nitrineParticleObstacle);
     }
 }

@@ -1,10 +1,10 @@
 using Itmo.ObjectOrientedProgramming.Lab1.Ships;
 
-namespace Itmo.ObjectOrientedProgramming.Lab1.Router;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Services;
 
 public abstract record PathFinderResult
 {
-    public record Success(int Time, double Fuel, IShip Ship) : PathFinderResult;
+    public record Success(IShip Ship) : PathFinderResult;
 
     public record Failed : PathFinderResult;
 }

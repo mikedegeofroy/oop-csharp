@@ -4,6 +4,11 @@ public class AlphaJumpEngine : IJumpEngine
 {
     public EngineConsumption GetConsumption(int distance)
     {
-        throw new System.NotImplementedException();
+        return new EngineConsumption(distance, new Fuel.GravitonMatterFuel(distance));
+    }
+
+    public int GetRange()
+    {
+        return 80;
     }
 }

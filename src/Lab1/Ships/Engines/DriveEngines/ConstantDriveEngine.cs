@@ -4,6 +4,6 @@ public class ConstantDriveEngine : IDriveEngine
 {
     public EngineConsumption GetConsumption(int distance)
     {
-        return new EngineConsumption(distance, distance);
+        return new EngineConsumption(distance, new Fuel.ActivePlasmaFuel(20));
     }
 }

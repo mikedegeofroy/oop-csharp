@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab1.Ships;
+using Itmo.ObjectOrientedProgramming.Lab1.Ships.Engines;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Router;
 
@@ -16,16 +17,16 @@ public class Route
     public TraversalResult Traverse(IShip ship)
     {
         int time = 0;
-        double fuel = 0;
+        List<Fuel> fuels = new();
 
-        foreach (TraversalResult result in _paths.Select(path => path.Environment.TraverseEnvironment(ship)))
+        foreach (TraversalResult result in _paths.Select(path => path.TraversePath(ship)))
         {
             if (result is not TraversalResult.Success success)
                 return result;
             time += success.Time;
-            fuel += success.Fuel;
+            fuels.AddRange(success.Fuel);
         }
 
-        return new TraversalResult.Success(time, fuel);
+        return new TraversalResult.Success(time, fuels);
     }
 }

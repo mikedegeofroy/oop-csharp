@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab1.Obstacles.Interfaces;
 using Itmo.ObjectOrientedProgramming.Lab1.Router;
 using Itmo.ObjectOrientedProgramming.Lab1.Ships;
+using Itmo.ObjectOrientedProgramming.Lab1.Ships.Engines;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environments;
 
@@ -15,9 +17,14 @@ public class HighDensity : IEnvironment
         _obstacles = obstacles.ToList();
     }
 
-    public TraversalResult TraverseEnvironment(IShip ship)
+    public HighDensity()
+        : this(Enumerable.Empty<IHighDensityObstacle>())
     {
-        if (ship.JumpEngine == null)
+    }
+
+    public TraversalResult TraverseEnvironment(IShip ship, int length)
+    {
+        if (ship.JumpEngine == null || ship.JumpEngine.GetRange() < length)
             return new TraversalResult.LostShip("Ship lost in a channel");
 
         foreach (IHighDensityObstacle highDensityObstacle in _obstacles)
@@ -25,11 +32,14 @@ public class HighDensity : IEnvironment
             highDensityObstacle.GiveDamage(ship);
         }
 
-        return new TraversalResult.Success(0, 0);
+        EngineConsumption consumption = ship.JumpEngine.GetConsumption(length);
+        return new TraversalResult.Success(consumption.Time, new[] { consumption.Consumption });
     }
 
-    public IEnumerable<IObstacle> GetObstacles()
+    public void AddObstacle(IObstacle obstacle)
     {
-        throw new System.NotImplementedException();
+        if (obstacle is not IHighDensityObstacle highDensityObstacle)
+            throw new ArgumentException("You can't add this obstacle to this environment.");
+        _obstacles.Add(highDensityObstacle);
     }
 }
