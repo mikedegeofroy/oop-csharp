@@ -6,26 +6,18 @@ using Itmo.ObjectOrientedProgramming.Lab1.Ships;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environments;
 
-public class HighDensity : IEnvironment
+public class NitrineParticle : IEnvironment
 {
-    private readonly List<IHighDensityObstacle> _obstacles;
+    private readonly List<INitrineParticleObstacle> _obstacles;
 
-    public HighDensity(IEnumerable<IHighDensityObstacle> obstacles)
+    public NitrineParticle(IEnumerable<INitrineParticleObstacle> obstacles)
     {
         _obstacles = obstacles.ToList();
     }
 
     public TraversalResult TraverseEnvironment(IShip ship)
     {
-        if (ship.JumpEngine == null)
-            return new TraversalResult.LostShip("Ship lost in a channel");
-
-        foreach (IHighDensityObstacle highDensityObstacle in _obstacles)
-        {
-            highDensityObstacle.GiveDamage(ship);
-        }
-
-        return new TraversalResult.Success(0, 0);
+        throw new System.NotImplementedException();
     }
 
     public IEnumerable<IObstacle> GetObstacles()

@@ -1,9 +1,14 @@
+using Itmo.ObjectOrientedProgramming.Lab1.Obstacles.Interfaces;
+using Itmo.ObjectOrientedProgramming.Lab1.Ships;
+
 namespace Itmo.ObjectOrientedProgramming.Lab1.Obstacles;
 
-public class Asteroid : IObstacle
+public class Asteroid : ICosmosObstacle
 {
-    public double GetDamage()
+    private const double Damage = 10;
+
+    public void GiveDamage(IShip ship)
     {
-        throw new System.NotImplementedException();
+        ship.TakeDamage(Damage);
     }
 }

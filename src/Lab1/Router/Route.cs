@@ -13,13 +13,19 @@ public class Route
         _paths = paths.ToList();
     }
 
-    public TraversalOutcome Traverse(IShip ship)
+    public TraversalResult Traverse(IShip ship)
     {
-        foreach (Path x in _paths)
+        int time = 0;
+        double fuel = 0;
+
+        foreach (TraversalResult result in _paths.Select(path => path.Environment.TraverseEnvironment(ship)))
         {
-            ship.TakeDamage(x.Length);
+            if (result is not TraversalResult.Success success)
+                return result;
+            time += success.Time;
+            fuel += success.Fuel;
         }
 
-        return new TraversalOutcome.DeathOfCrew();
+        return new TraversalResult.Success(time, fuel);
     }
 }

@@ -3,9 +3,9 @@ using Itmo.ObjectOrientedProgramming.Lab1.Ships;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Obstacles;
 
-public class CosmoWhale : INitrineParticleObstacle
+public class Meteorite : ICosmosObstacle
 {
-    private const double Damage = 200;
+    private const double Damage = 10;
 
     public void GiveDamage(IShip ship)
     {

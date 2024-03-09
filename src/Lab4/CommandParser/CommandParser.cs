@@ -3,20 +3,12 @@ using Itmo.ObjectOrientedProgramming.Lab4.CommandParser.ArgumentHandlers.Connect
 using Itmo.ObjectOrientedProgramming.Lab4.CommandParser.ArgumentHandlers.File;
 using Itmo.ObjectOrientedProgramming.Lab4.CommandParser.ArgumentHandlers.Tree;
 using Itmo.ObjectOrientedProgramming.Lab4.CommandParser.CommandHandlers;
-using Itmo.ObjectOrientedProgramming.Lab4.Commands;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.CommandParser;
 
 public class CommandParser
 {
-    private readonly ICommandHandler _head;
-    private readonly FileSystem.FileSystem _fileSystem;
-
-    public CommandParser(FileSystem.FileSystem fileSystem)
-    {
-        _fileSystem = fileSystem;
-        _head = BuildCommandHandlerChain();
-    }
+    private readonly ICommandHandler _head = BuildCommandHandlerChain();
 
     public ParserOutput Parse(string command)
     {
