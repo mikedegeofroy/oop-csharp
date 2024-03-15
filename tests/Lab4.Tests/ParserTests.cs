@@ -17,7 +17,7 @@ public class ParserTests
     {
         // Arrange
         FileSystem.FileSystem? fs = Substitute.For<FileSystem.FileSystem>();
-        var parser = new CommandParser.CommandParser(fs);
+        var parser = new CommandParser.CommandParser();
 
         // Act
         ParserOutput output = parser.Parse("connect /Users/mikedegeofroy/Desktop");
@@ -38,7 +38,7 @@ public class ParserTests
         // Arrange
         FileSystem.FileSystem? fs = Substitute.For<FileSystem.FileSystem>();
         fs.Connect("/Users/mikedegeofroy/Desktop", new MacOsFileSystemStrategy());
-        var parser = new CommandParser.CommandParser(fs);
+        var parser = new CommandParser.CommandParser();
 
         // Act
         ParserOutput output = parser.Parse("list / -d 3");
@@ -58,7 +58,7 @@ public class ParserTests
     {
         // Arrange
         FileSystem.FileSystem? fs = Substitute.For<FileSystem.FileSystem>();
-        var parser = new CommandParser.CommandParser(fs);
+        var parser = new CommandParser.CommandParser();
 
         // Act
         ParserOutput output = parser.Parse("disconnect");
@@ -79,7 +79,7 @@ public class ParserTests
         // Arrange
         FileSystem.FileSystem? fs = Substitute.For<FileSystem.FileSystem>();
         fs.Connect("/Users/mikedegeofroy/Desktop", new MacOsFileSystemStrategy());
-        var parser = new CommandParser.CommandParser(fs);
+        var parser = new CommandParser.CommandParser();
 
         // Act
         ParserOutput output = parser.Parse("tree goto /itmo");
@@ -100,7 +100,7 @@ public class ParserTests
         // Arrange
         FileSystem.FileSystem? fs = Substitute.For<FileSystem.FileSystem>();
         fs.Connect("/Users/mikedegeofroy/Desktop", new MacOsFileSystemStrategy());
-        var parser = new CommandParser.CommandParser(fs);
+        var parser = new CommandParser.CommandParser();
 
         // Act
         ParserOutput output = parser.Parse("file show /itmo/databases/questions.txt -m console");
@@ -121,7 +121,7 @@ public class ParserTests
         // Arrange
         FileSystem.FileSystem? fs = Substitute.For<FileSystem.FileSystem>();
         fs.Connect("/Users/mikedegeofroy/Desktop", new MacOsFileSystemStrategy());
-        var parser = new CommandParser.CommandParser(fs);
+        var parser = new CommandParser.CommandParser();
 
         // Act
         ParserOutput output = parser.Parse("file move /itmo/databases/questions.txt /itmo/databases/questions2.txt");
